@@ -36,42 +36,16 @@ class Solution(object):
 
         
 
-        def isanagram(s, t):
-
-            if len(s) != len(t):
-                return False
-
-
-            letters = {}
-            for letter in s:
-                if letter not in letters:
-                    letters[letter] = 0
-                letters[letter] += 1
-
-            for letter in t:
-                if letter not in letters:
-                    return False
-                if letters[letter] == 0:
-                    return False
-
-                letters[letter] -= 1
-
-            return True 
         anagrams = {}
+        
         for word in strs:
-            x = False
-            for anagram in anagrams.keys():
-                if isanagram(word, anagram):
-                    anagrams[anagram].append(word)
-                    x = True
+            sorted_word = ''.join(sorted(word))
+            if sorted_word not in anagrams:
+                anagrams[sorted_word] = []
+            anagrams[sorted_word].append(word)
 
-            if not x:
-                anagrams[word] = [word]
-        output = [] 
-        for group in anagrams.values():
-            output.append(group)
 
-        return output 
+        return anagrams.values() 
 
 
 if __name__ == "__main__":
