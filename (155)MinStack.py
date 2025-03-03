@@ -37,42 +37,34 @@ from heapq import heapify, heappush, heappop
 class MinStack(object):
 
     def __init__(self):
-        
-        self.stack = [] 
-        self.heap = []
-        heapify(self.heap)
-
+        self.stack = []
 
     def push(self, val):
         """
         :type val: int
         :rtype: None
         """
-        self.stack.append(val)
-        heappush(self.heap, val)
-        
+        current_min = val if not self.stack else min(val, self.stack[-1][1])
+        self.stack.append((val, current_min))
 
     def pop(self):
         """
         :rtype: None
         """
-        self.stack.pop()
-        heappop(self.heap)
-        
+        if self.stack:
+            self.stack.pop()
 
     def top(self):
         """
         :rtype: int
         """
-        return self.stack[-1]
-        
+        return self.stack[-1][0] if self.stack else None
 
     def getMin(self):
         """
         :rtype: int
         """
-
-        return self.heap[0]
+        return self.stack[-1][1] if self.stack else None
 
         
 
