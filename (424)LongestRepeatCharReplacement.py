@@ -32,13 +32,68 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-
         
+        def most_freq(mappings):
+
+            freq = -float('inf')
+
+            for key,value in mappings.items():
+                if value > freq:
+                    freq = value 
+
+            return freq
+        
+        mapping = {}
+        longest = -float('inf')
+
+
+
+        window_size = 1
+        i = 0 
+
+        if s[i] not in mapping:
+            mapping[s[i]] = 0 
+        mapping[s[i]] += 1
+
+        while i + window_size < len(s):
+
+            print("********")
+            print(i, window_size) 
+            print(mapping, most_freq(mapping))
+            print(s[i:i+window_size])
+            if window_size - most_freq(mapping) <= k:
+                print("hereA")
+
+                if window_size  > longest:
+                    longest = window_size
+
+                if s[i+window_size] not in mapping:
+                    mapping[s[i+window_size]] = 0 
+                mapping[s[i+window_size]] += 1 
+
+                window_size += 1
+            else:   
+                print("here")
+
+                mapping[s[i]] -= 1
+
+                window_size -= 1
+                i += 1
+
+                if s[i+window_size] not in mapping:
+                    mapping[s[i+window_size]] = 0
+                mapping[s[i+window_size]] += 1 
+
+                
+        return window_size 
+
+
+            
     
 
 if __name__ == "__main__":
      
     solver = Solution()
-    print(solver.characterReplacement("ABAB", 2))
+    print(solver.characterReplacement("AABABBA", 0))
 
 
