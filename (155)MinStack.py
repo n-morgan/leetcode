@@ -32,44 +32,54 @@ minStack.top();    // return 0
 minStack.getMin(); // return -2
  
 '''
+from heapq import heapify, heappush, heappop
 
 class MinStack(object):
 
     def __init__(self):
-        
+        self.stack = []
 
     def push(self, val):
         """
         :type val: int
         :rtype: None
         """
-        
+        current_min = val if not self.stack else min(val, self.stack[-1][1])
+        self.stack.append((val, current_min))
 
     def pop(self):
         """
         :rtype: None
         """
-        
+        if self.stack:
+            self.stack.pop()
 
     def top(self):
         """
         :rtype: int
         """
-        
+        return self.stack[-1][0] if self.stack else None
 
     def getMin(self):
         """
         :rtype: int
         """
+        return self.stack[-1][1] if self.stack else None
+
         
 
-if __name__ == "__main__"
+if __name__ == "__main__":
 # Your MinStack object will be instantiated and called as such:
-# obj = MinStack()
-# obj.push(val)
-# obj.pop()
-# param_3 = obj.top()
-# param_4 = obj.getMin()
+
+    minStack = MinStack()
+    minStack.push(-2);
+    minStack.push(0);
+    minStack.push(-3);
+    print(minStack.getMin()); # return -3
+    minStack.pop();
+    print(minStack.top());  # return 0
+    print(minStack.getMin()); # return -2
+
 
 
 
